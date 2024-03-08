@@ -68,7 +68,7 @@ public class IncubatorBlockEntity extends RecipeMachineBlockEntity<IncubatorReci
         super.setChanged();
         assert level != null;
         if (!level.isClientSide)
-            PenguinNetwork.sendToNearby(new SetInventorySlotPacket(worldPosition, 0, items.get(0)), this);
+            PenguinNetwork.sendToNearby(this, new SetInventorySlotPacket(worldPosition, 0, items.get(0)));
     }
 
     @Override
@@ -110,7 +110,7 @@ public class IncubatorBlockEntity extends RecipeMachineBlockEntity<IncubatorReci
         if (!spawns.isEmpty()) {
             getRecipeResult(items.get(0)).hatch((ServerLevel) level, spawns.get(level.random.nextInt(spawns.size())), items.get(0));
             this.items.set(0, ItemStack.EMPTY);
-            PenguinNetwork.sendToNearby(new SetInventorySlotPacket(this.worldPosition, 0, ItemStack.EMPTY), this);
+            PenguinNetwork.sendToNearby(this, new SetInventorySlotPacket(this.worldPosition, 0, ItemStack.EMPTY));
             this.setChanged();
         }
     }

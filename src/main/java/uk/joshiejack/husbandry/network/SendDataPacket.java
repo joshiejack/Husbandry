@@ -8,11 +8,11 @@ import net.minecraft.world.entity.player.Player;
 import uk.joshiejack.husbandry.world.entity.stats.MobStats;
 import uk.joshiejack.penguinlib.PenguinLib;
 import uk.joshiejack.penguinlib.network.packet.SyncCompoundTagPacket;
-import uk.joshiejack.penguinlib.util.PenguinLoader;
+import uk.joshiejack.penguinlib.util.registry.Packet;
 
 import javax.annotation.Nonnull;
 
-@PenguinLoader.Packet(PacketFlow.CLIENTBOUND)
+@Packet(PacketFlow.CLIENTBOUND)
 public class SendDataPacket extends SyncCompoundTagPacket {
     public static final ResourceLocation ID = PenguinLib.prefix("send_husbandry_data");
     @Override

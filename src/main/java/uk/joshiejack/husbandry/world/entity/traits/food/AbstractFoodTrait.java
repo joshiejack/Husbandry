@@ -19,7 +19,7 @@ import uk.joshiejack.penguinlib.util.icon.Icon;
 import uk.joshiejack.penguinlib.util.icon.TagIcon;
 
 public abstract class AbstractFoodTrait implements IJoinWorldTrait, IInteractiveTrait, IIconTrait {
-    private final Lazy<Icon> icon = Lazy.of(() -> new TagIcon(getFoodTag()));
+    private final Lazy<Icon> icon = Lazy.of(() -> new TagIcon(getFoodTag(), 1));
 
     protected abstract TagKey<Item> getFoodTag();
 

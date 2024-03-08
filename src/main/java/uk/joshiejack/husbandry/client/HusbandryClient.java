@@ -51,7 +51,7 @@ public class HusbandryClient {
                     Component stats = Component.translatable("gui." + Husbandry.MODID + ".stats");
                     Component notes = Component.translatable("gui." + Husbandry.MODID + ".notes");
                     bs.withTab(new Tab(stats, PageStats.ICON)).withPage(new PageStats(stats));
-                    bs.withTab(new NotesTab(notes, new TextureIcon(Icon.DEFAULT_LOCATION, 0, 0))
+                    bs.withTab(new NotesTab(notes, new TextureIcon(Icon.DEFAULT_LOCATION, 0, 0, 1))
                             .withCategory(new ResourceLocation(Husbandry.MODID, "care_category")));
                 })
         ));

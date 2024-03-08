@@ -11,12 +11,12 @@ import uk.joshiejack.husbandry.world.entity.traits.TraitType;
 import uk.joshiejack.husbandry.world.entity.traits.happiness.CleanableTrait;
 import uk.joshiejack.penguinlib.PenguinLib;
 import uk.joshiejack.penguinlib.network.packet.PenguinPacket;
-import uk.joshiejack.penguinlib.util.PenguinLoader;
+import uk.joshiejack.penguinlib.util.registry.Packet;
 
 import javax.annotation.Nonnull;
 
-@PenguinLoader.Packet(PacketFlow.CLIENTBOUND)
-public class SetCleanedStatusPacket extends PenguinPacket {
+@Packet(PacketFlow.CLIENTBOUND)
+public class SetCleanedStatusPacket implements PenguinPacket {
     public static final ResourceLocation ID = PenguinLib.prefix("set_cleaned_status");
     @Override
     public @Nonnull ResourceLocation id() {

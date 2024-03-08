@@ -1,6 +1,11 @@
 {
-  "category": {
-    "id": "husbandry:care_category"
-  },
-  "id": "husbandry:nest_note"
+  "type": "text",
+  "category": "husbandry:care_category",
+  "icon": {
+    "type": "penguinlib:item",
+    "item": {
+      "Count": 0,
+      "id": "minecraft:air"
+    }
+  }
 }

@@ -113,7 +113,7 @@ public class MobStats<E extends Mob> implements INBTSerializable<CompoundTag>, I
         mob.goalSelector.getRunningGoals()
                 .filter(ai -> ai.getGoal() instanceof AbstractMoveToBlockGoal)
                 .forEach(ai -> ((AbstractMoveToBlockGoal) ai.getGoal()).resetRunTimer());
-        PenguinNetwork.sendToNearby(new SendDataPacket(mob.getId(), this), mob);
+        PenguinNetwork.sendToNearby(mob, new SendDataPacket(mob.getId(), this));
     }
 
     @Override
@@ -130,7 +130,7 @@ public class MobStats<E extends Mob> implements INBTSerializable<CompoundTag>, I
     public void setHappiness(Mob mob, int happiness) {
         this.happiness = happiness;
         if (!mob.level().isClientSide)
-            PenguinNetwork.sendToNearby(new SetHappinessPacket(mob.getId(), happiness), mob);
+            PenguinNetwork.sendToNearby(mob, new SetHappinessPacket(mob.getId(), happiness));
     }
 
     @Override
@@ -147,7 +147,7 @@ public class MobStats<E extends Mob> implements INBTSerializable<CompoundTag>, I
     public void decreaseHappiness(Mob mob, int happiness) {
         this.happiness = MathHelper.constrainToRangeInt(this.happiness - happiness, 0, MAX_RELATIONSHIP.get() / happinessDivisor);
         if (!mob.level().isClientSide) {
-            PenguinNetwork.sendToNearby(new SpawnHeartsPacket(mob.getId(), false), mob);
+            PenguinNetwork.sendToNearby(mob, new SpawnHeartsPacket(mob.getId(), false));
         }
     }
 
@@ -155,7 +155,7 @@ public class MobStats<E extends Mob> implements INBTSerializable<CompoundTag>, I
     public void increaseHappiness(Mob mob, int happiness) {
         this.happiness = MathHelper.constrainToRangeInt(this.happiness + happiness, 0, MAX_RELATIONSHIP.get() / happinessDivisor);
         if (!mob.level().isClientSide) {
-            PenguinNetwork.sendToNearby(new SpawnHeartsPacket(mob.getId(), true), mob);
+            PenguinNetwork.sendToNearby(mob, new SpawnHeartsPacket(mob.getId(), true));
         }
     }
 
@@ -223,7 +223,7 @@ public class MobStats<E extends Mob> implements INBTSerializable<CompoundTag>, I
         hearts = Math.max(0, Math.min(10, hearts));
         this.happiness = hearts * (MAX_RELATIONSHIP.get()/ 10);
         if (!mob.level().isClientSide)
-            PenguinNetwork.sendToNearby(new SetHappinessPacket(mob.getId(), happiness), mob);
+            PenguinNetwork.sendToNearby(mob, new SetHappinessPacket(mob.getId(), happiness));
     }
 
     @Override

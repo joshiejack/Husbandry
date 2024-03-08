@@ -9,12 +9,12 @@ import uk.joshiejack.husbandry.world.entity.stats.MobStats;
 import uk.joshiejack.penguinlib.PenguinLib;
 import uk.joshiejack.penguinlib.network.PenguinNetwork;
 import uk.joshiejack.penguinlib.network.packet.PenguinPacket;
-import uk.joshiejack.penguinlib.util.PenguinLoader;
+import uk.joshiejack.penguinlib.util.registry.Packet;
 
 import javax.annotation.Nonnull;
 
-@PenguinLoader.Packet(PacketFlow.SERVERBOUND)
-public class RequestDataPacket extends PenguinPacket {
+@Packet(PacketFlow.SERVERBOUND)
+public class RequestDataPacket implements PenguinPacket {
     public static final ResourceLocation ID = PenguinLib.prefix("request_husbandry_data");
     @Override
     public @Nonnull ResourceLocation id() {

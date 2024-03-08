@@ -16,7 +16,7 @@ import uk.joshiejack.penguinlib.util.icon.TextureIcon;
 public class AbstractLoveableTrait implements IRenderTrait, IIconTrait {
     private static final ResourceLocation MINECRAFT_ICONS = new ResourceLocation("minecraft", "textures/gui/icons.png");
     public static final ResourceLocation HUSBANDRY_ICONS = new ResourceLocation(Husbandry.MODID, "textures/gui/icons.png");
-    public static final Icon ICON = new TextureIcon(HUSBANDRY_ICONS, 32, 0);
+    public static final Icon ICON = new TextureIcon(HUSBANDRY_ICONS, 32, 0, 1);
 
     @OnlyIn(Dist.CLIENT)
     @Override

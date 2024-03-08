@@ -56,7 +56,7 @@ public class LayEggGoal extends AbstractMoveToBlockGoal {
                         stats.setProduced(entity, 1);
                         entity.playSound(SoundEvents.CHICKEN_EGG, 1.0F, (entity.getRandom().nextFloat() - entity.getRandom().nextFloat()) * 0.2F + 1.0F);
                         tryTicks = 9999;
-                        PenguinNetwork.sendToNearby(new SetInventorySlotPacket(blockPos, 0, product), tile);
+                        PenguinNetwork.sendToNearby(tile, new SetInventorySlotPacket(blockPos, 0, product));
                     }
                 }
 

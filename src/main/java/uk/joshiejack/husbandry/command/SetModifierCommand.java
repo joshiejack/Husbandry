@@ -24,7 +24,7 @@ public class SetModifierCommand {
                         MobStats<?> stats = MobStats.getStats(entity);
                         if (stats == null) return;
                         stats.setHappinessModifier(amount);
-                        PenguinNetwork.sendToNearby(new SetModifierPacket(entity.getId(), amount), entity);
+                        PenguinNetwork.sendToNearby(entity, new SetModifierPacket(entity.getId(), amount));
                         success.setTrue();
                     });
 

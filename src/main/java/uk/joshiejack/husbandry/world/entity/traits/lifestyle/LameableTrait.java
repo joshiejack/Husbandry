@@ -21,7 +21,7 @@ import uk.joshiejack.penguinlib.util.icon.TextureIcon;
 import java.util.Objects;
 
 public class LameableTrait implements IIconTrait, IJoinWorldTrait, IInteractiveTrait, IDataTrait {
-    public static final Icon ICON = new TextureIcon(AbstractLoveableTrait.HUSBANDRY_ICONS, 0, 0);
+    public static final Icon ICON = new TextureIcon(AbstractLoveableTrait.HUSBANDRY_ICONS, 0, 0, 1);
     private boolean lamed;
 
     @OnlyIn(Dist.CLIENT)

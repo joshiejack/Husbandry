@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("rawtypes")
 @OnlyIn(Dist.CLIENT)
 public class PageStats extends AbstractMultiPage.Both<Pair<Mob, MobStats>> {
-    public static final Icon ICON = new EntityIcon(Holder.direct(EntityType.HORSE), 6);
+    public static final Icon ICON = new EntityIcon(Holder.direct(EntityType.HORSE), 1, 6);
     public PageStats(Component name) {
         super(name, 10);
     }

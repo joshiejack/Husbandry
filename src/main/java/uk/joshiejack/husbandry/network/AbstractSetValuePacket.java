@@ -11,7 +11,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import uk.joshiejack.husbandry.world.entity.stats.MobStats;
 import uk.joshiejack.penguinlib.network.packet.PenguinPacket;
 
-public abstract class AbstractSetValuePacket extends PenguinPacket {
+public abstract class AbstractSetValuePacket implements PenguinPacket {
     private final int entityID;
     protected final int value;
 

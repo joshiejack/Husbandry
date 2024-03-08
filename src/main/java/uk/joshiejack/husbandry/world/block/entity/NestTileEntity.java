@@ -45,7 +45,7 @@ public class NestTileEntity extends InventoryBlockEntity {
         super.setChanged();
         assert level != null;
         if (!level.isClientSide)
-            PenguinNetwork.sendToNearby(new SetInventorySlotPacket(worldPosition, 0, items.get(0)), this);
+            PenguinNetwork.sendToNearby(this, new SetInventorySlotPacket(worldPosition, 0, items.get(0)));
     }
 
     @Override

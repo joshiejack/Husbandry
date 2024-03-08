@@ -29,6 +29,6 @@ public abstract class FoodSupplyBlockEntity extends InventoryBlockEntity {
         ItemStack copied = items.get(0).copy();
         copied.shrink(1);
         setItem(0, copied);
-        PenguinNetwork.sendToNearby(new SetInventorySlotPacket(worldPosition, 0, items.get(0)), this);
+        PenguinNetwork.sendToNearby(this, new SetInventorySlotPacket(worldPosition, 0, items.get(0)));
     }
 }

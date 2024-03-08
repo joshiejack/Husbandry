@@ -11,10 +11,10 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import uk.joshiejack.penguinlib.PenguinLib;
 import uk.joshiejack.penguinlib.network.packet.PenguinPacket;
-import uk.joshiejack.penguinlib.util.PenguinLoader;
+import uk.joshiejack.penguinlib.util.registry.Packet;
 
-@PenguinLoader.Packet(PacketFlow.CLIENTBOUND)
-public class SpawnHeartsPacket extends PenguinPacket {
+@Packet(PacketFlow.CLIENTBOUND)
+public class SpawnHeartsPacket implements PenguinPacket {
     public static final ResourceLocation ID = PenguinLib.prefix("spawn_hearts");
     @Override
     public @NotNull ResourceLocation id() {

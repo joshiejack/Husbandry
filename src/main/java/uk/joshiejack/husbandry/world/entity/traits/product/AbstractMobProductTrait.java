@@ -28,7 +28,7 @@ public abstract class AbstractMobProductTrait implements IIconTrait, IDataTrait 
             this.productsProduced = amount;
         } else {
             productsProduced += amount;
-            PenguinNetwork.sendToNearby(new SetProducedProductPacket(mob.getId(), productsProduced), mob);
+            PenguinNetwork.sendToNearby(mob, new SetProducedProductPacket(mob.getId(), productsProduced));
         }
     }
 

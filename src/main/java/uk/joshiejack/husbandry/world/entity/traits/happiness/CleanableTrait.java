@@ -83,7 +83,7 @@ public class CleanableTrait implements IDataTrait, IInteractiveTrait, INewDayTra
                 stats.increaseHappiness(mob, Husbandry.HusbandryConfig.cleanedGain.get());
             }
 
-            PenguinNetwork.sendToNearby(new SetCleanedStatusPacket(mob.getId(), cleaned), mob);
+            PenguinNetwork.sendToNearby(mob, new SetCleanedStatusPacket(mob.getId(), cleaned));
         }
     }
 
