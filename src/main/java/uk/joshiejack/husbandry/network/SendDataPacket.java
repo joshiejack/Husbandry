@@ -1,38 +1,49 @@
 package uk.joshiejack.husbandry.network;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkDirection;
-import uk.joshiejack.husbandry.entity.stats.MobStats;
-import uk.joshiejack.penguinlib.network.packet.AbstractSyncCompoundNBTPacket;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import uk.joshiejack.husbandry.world.entity.stats.MobStats;
+import uk.joshiejack.penguinlib.PenguinLib;
+import uk.joshiejack.penguinlib.network.packet.SyncCompoundTagPacket;
 import uk.joshiejack.penguinlib.util.PenguinLoader;
 
-@PenguinLoader.Packet(NetworkDirection.PLAY_TO_CLIENT)
-public class SendDataPacket extends AbstractSyncCompoundNBTPacket {
-    private int entityID;
+import javax.annotation.Nonnull;
 
-    public SendDataPacket(){}
+@PenguinLoader.Packet(PacketFlow.CLIENTBOUND)
+public class SendDataPacket extends SyncCompoundTagPacket {
+    public static final ResourceLocation ID = PenguinLib.prefix("send_husbandry_data");
+    @Override
+    public @Nonnull ResourceLocation id() {
+        return ID;
+    }
+
+    private final int entityID;
+
     public SendDataPacket(int entityID, MobStats<?> stats) {
         super(stats.serializeNBT());
         this.entityID = entityID;
     }
 
-    @Override
-    public void encode(PacketBuffer to) {
-        to.writeInt(entityID);
-        super.encode(to);
+    @SuppressWarnings("unused")
+    public SendDataPacket(FriendlyByteBuf buf) {
+        super(buf);
+        entityID = buf.readInt();
     }
 
     @Override
-    public void decode(PacketBuffer from) {
-        entityID = from.readInt();
-        super.decode(from);
+    public void write(FriendlyByteBuf buf) {
+        super.write(buf);
+        buf.writeInt(entityID);
     }
 
+
+
     @Override
-    public void handle(PlayerEntity player) {
-        Entity entity = player.level.getEntity(entityID);
+    public void handle(Player player) {
+        Entity entity = player.level().getEntity(entityID);
         if (entity != null) {
             MobStats<?> stats = MobStats.getStats(entity);
             if (stats != null)

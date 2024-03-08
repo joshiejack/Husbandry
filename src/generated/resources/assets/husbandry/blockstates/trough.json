@@ -6,75 +6,75 @@
       }
     },
     {
-      "when": {
-        "type": "hay",
-        "fill": "1"
-      },
       "apply": {
         "model": "husbandry:block/hay_one_quarter"
+      },
+      "when": {
+        "type": "hay",
+        "fill": "1"
       }
     },
     {
+      "apply": {
+        "model": "husbandry:block/hay_two_quarters"
+      },
       "when": {
         "type": "hay",
         "fill": "2"
-      },
-      "apply": {
-        "model": "husbandry:block/hay_two_quarters"
       }
     },
     {
+      "apply": {
+        "model": "husbandry:block/hay_three_quarters"
+      },
       "when": {
         "type": "hay",
         "fill": "3"
-      },
-      "apply": {
-        "model": "husbandry:block/hay_three_quarters"
       }
     },
     {
+      "apply": {
+        "model": "husbandry:block/hay_four_quarters"
+      },
       "when": {
         "type": "hay",
         "fill": "4"
-      },
-      "apply": {
-        "model": "husbandry:block/hay_four_quarters"
       }
     },
     {
+      "apply": {
+        "model": "husbandry:block/slop_one_quarter"
+      },
       "when": {
         "type": "slop",
         "fill": "1"
-      },
-      "apply": {
-        "model": "husbandry:block/slop_one_quarter"
       }
     },
     {
+      "apply": {
+        "model": "husbandry:block/slop_two_quarters"
+      },
       "when": {
         "type": "slop",
         "fill": "2"
-      },
-      "apply": {
-        "model": "husbandry:block/slop_two_quarters"
       }
     },
     {
+      "apply": {
+        "model": "husbandry:block/slop_three_quarters"
+      },
       "when": {
         "type": "slop",
         "fill": "3"
-      },
-      "apply": {
-        "model": "husbandry:block/slop_three_quarters"
       }
     },
     {
+      "apply": {
+        "model": "husbandry:block/slop_four_quarters"
+      },
       "when": {
         "type": "slop",
         "fill": "4"
-      },
-      "apply": {
-        "model": "husbandry:block/slop_four_quarters"
       }
     }
   ]

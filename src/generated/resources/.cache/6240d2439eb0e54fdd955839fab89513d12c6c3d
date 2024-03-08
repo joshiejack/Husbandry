@@ -1,0 +1,13 @@
+// 1.20.4	2024-01-31T15:30:13.130362	Tags for minecraft:item mod id husbandry
+ed8ad26171545c5fb0c763d7c71d830a831a34d9 data/forge/tags/items/butter.json
+315678b2cd4c6e30ffa4f08c310e7562a8187101 data/forge/tags/items/raw_fishes.json
+dd02a7741ad5924cde2943c3022c47e26d223afe data/forge/tags/items/tools/sickles.json
+450c392bb584bc823bd93ae72bea3c071804eaa7 data/husbandry/tags/items/bird_feed.json
+536e133215a8c17818a0ca9dc139e4dd3adb4a81 data/husbandry/tags/items/cat_food.json
+d28881f871c0d24922746d1de57f4edc5364deb3 data/husbandry/tags/items/dog_food.json
+143245b314870f8201bf0187beab53f54ce107c4 data/husbandry/tags/items/hay.json
+629c9d949adb1213fdb537da32d56c4156ff56a6 data/husbandry/tags/items/impregnates_mammals.json
+7f8993e7db8631855f2f6d368651037475d75789 data/husbandry/tags/items/mob_product.json
+3a6049fdf6a247720cef5ea417a0c9519f707e01 data/husbandry/tags/items/rabbit_food.json
+c0bd1708cd17ccea3e48d8631e8969d39d733662 data/husbandry/tags/items/slop.json
+79e7c4f2b4b29a9bdf51a29c69fded08852e547b data/husbandry/tags/items/treat.json

@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SS",
-    " W",
-    "W "
-  ],
+  "category": "equipment",
   "key": {
     "S": {
       "item": "minecraft:cobblestone"
@@ -13,6 +9,11 @@
       "tag": "forge:rods/wooden"
     }
   },
+  "pattern": [
+    "SS",
+    " W",
+    "W "
+  ],
   "result": {
     "item": "husbandry:sickle"
   }

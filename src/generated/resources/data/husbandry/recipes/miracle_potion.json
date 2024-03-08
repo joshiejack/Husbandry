@@ -1,27 +1,28 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "forge:crops/apple"
+    },
+    "B": {
+      "item": "minecraft:glass_bottle"
+    },
+    "C": {
+      "tag": "forge:crops/carrot"
+    },
+    "F": {
+      "tag": "forge:raw_fishes"
+    },
+    "W": {
+      "tag": "forge:crops/wheat"
+    }
+  },
   "pattern": [
     " A ",
     "CBW",
     " F "
   ],
-  "key": {
-    "A": {
-      "tag": "forge:crops/apple"
-    },
-    "C": {
-      "tag": "forge:crops/carrot"
-    },
-    "B": {
-      "item": "minecraft:glass_bottle"
-    },
-    "W": {
-      "tag": "forge:crops/wheat"
-    },
-    "F": {
-      "tag": "forge:raw_fishes"
-    }
-  },
   "result": {
     "item": "husbandry:miracle_potion"
   }

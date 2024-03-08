@@ -1,20 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "IHI",
-    "PPP"
-  ],
+  "category": "misc",
   "key": {
+    "H": {
+      "item": "minecraft:hay_block"
+    },
     "I": {
       "tag": "forge:ingots/iron"
     },
     "P": {
       "tag": "minecraft:planks"
-    },
-    "H": {
-      "item": "minecraft:hay_block"
     }
   },
+  "pattern": [
+    "IHI",
+    "PPP"
+  ],
   "result": {
     "item": "husbandry:incubator"
   }

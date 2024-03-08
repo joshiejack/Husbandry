@@ -1,7 +1,0 @@
-{
-  "type": "penguinlib:note",
-  "category": "husbandry:care_category",
-  "icon": {
-    "item": "husbandry:incubator"
-  }
-}

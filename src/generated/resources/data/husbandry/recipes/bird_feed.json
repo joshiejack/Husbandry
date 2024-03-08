@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "tag": "forge:seeds"
@@ -12,7 +13,7 @@
     }
   ],
   "result": {
-    "item": "husbandry:bird_feed",
-    "count": 12
+    "count": 12,
+    "item": "husbandry:bird_feed"
   }
 }

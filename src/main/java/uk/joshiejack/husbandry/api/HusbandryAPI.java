@@ -1,6 +1,6 @@
 package uk.joshiejack.husbandry.api;
 
-import net.minecraft.entity.MobEntity;
+import net.minecraft.world.entity.Mob;
 import uk.joshiejack.husbandry.api.trait.IMobTrait;
 
 import javax.annotation.Nullable;
@@ -23,6 +23,6 @@ public class HusbandryAPI {
          * @return          the mob stats for this entity
          */
         @Nullable
-        <E extends MobEntity> IMobStats<E> getStatsForEntity(E entity);
+        <E extends Mob> IMobStats<E> getStatsForEntity(E entity);
     }
 }

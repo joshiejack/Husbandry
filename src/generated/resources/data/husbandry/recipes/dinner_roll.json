@@ -1,8 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
-      "tag": "forge:breads"
+      "tag": "forge:bread"
     },
     {
       "tag": "forge:butter"

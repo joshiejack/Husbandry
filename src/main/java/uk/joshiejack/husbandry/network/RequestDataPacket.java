@@ -1,41 +1,51 @@
 package uk.joshiejack.husbandry.network;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkDirection;
-import uk.joshiejack.husbandry.entity.stats.MobStats;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import uk.joshiejack.husbandry.world.entity.stats.MobStats;
+import uk.joshiejack.penguinlib.PenguinLib;
 import uk.joshiejack.penguinlib.network.PenguinNetwork;
-import uk.joshiejack.penguinlib.network.PenguinPacket;
+import uk.joshiejack.penguinlib.network.packet.PenguinPacket;
 import uk.joshiejack.penguinlib.util.PenguinLoader;
 
-@PenguinLoader.Packet(NetworkDirection.PLAY_TO_SERVER)
-public class RequestDataPacket extends PenguinPacket {
-    private int entityID;
+import javax.annotation.Nonnull;
 
-    public RequestDataPacket(){}
+@PenguinLoader.Packet(PacketFlow.SERVERBOUND)
+public class RequestDataPacket extends PenguinPacket {
+    public static final ResourceLocation ID = PenguinLib.prefix("request_husbandry_data");
+    @Override
+    public @Nonnull ResourceLocation id() {
+        return ID;
+    }
+
+
+    private final int entityID;
+
     public RequestDataPacket(int entityID) {
         this.entityID = entityID;
     }
 
-    @Override
-    public void encode(PacketBuffer to) {
-        to.writeInt(entityID);
-    }
-
-    @Override
-    public void decode(PacketBuffer from) {
+    @SuppressWarnings("unused")
+    public RequestDataPacket(FriendlyByteBuf from) {
         entityID = from.readInt();
     }
 
     @Override
-    public void handle(PlayerEntity player) {
-        Entity entity = player.level.getEntity(entityID);
+    public void write(FriendlyByteBuf to) {
+        to.writeInt(entityID);
+    }
+
+
+    @Override
+    public void handleServer(ServerPlayer player) {
+        Entity entity = player.level().getEntity(entityID);
         if (entity != null) {
             MobStats<?> stats = MobStats.getStats(entity);
             if (stats != null)
-                PenguinNetwork.sendToClient(new SendDataPacket(entityID, stats), (ServerPlayerEntity) player);
+                PenguinNetwork.sendToClient(player, new SendDataPacket(entityID, stats));
         }
     }
 }

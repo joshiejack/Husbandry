@@ -1,0 +1,28 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "entity_interaction": {
+      "conditions": {
+        "item": {}
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "husbandry:miracle_potion"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "entity_interaction"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "husbandry:miracle_potion"
+    ]
+  }
+}

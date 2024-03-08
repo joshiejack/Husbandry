@@ -1,18 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "tag": "minecraft:logs"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    }
+  },
   "pattern": [
     "P P",
     "PPP",
     "L L"
   ],
-  "key": {
-    "P": {
-      "tag": "minecraft:planks"
-    },
-    "L": {
-      "tag": "minecraft:logs"
-    }
-  },
   "result": {
     "item": "husbandry:trough"
   }

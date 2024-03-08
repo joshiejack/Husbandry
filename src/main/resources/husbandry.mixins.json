@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "uk.joshiejack.husbandry.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [],
+  "client": [
+    "client.HusbandryChickenRenderer",
+    "client.HusbandryCowRenderer",
+    "client.HusbandryGoatRenderer",
+    "client.HusbandryPigRenderer"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

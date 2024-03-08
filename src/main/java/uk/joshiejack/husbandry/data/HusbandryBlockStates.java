@@ -1,28 +1,28 @@
 package uk.joshiejack.husbandry.data;
 
-import net.minecraft.block.Block;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import uk.joshiejack.husbandry.Husbandry;
-import uk.joshiejack.husbandry.block.*;
+import uk.joshiejack.husbandry.world.block.*;
 
-@SuppressWarnings("ConstantConditions")
 public class HusbandryBlockStates extends BlockStateProvider {
-    public HusbandryBlockStates(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, Husbandry.MODID, exFileHelper);
+    public HusbandryBlockStates(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, Husbandry.MODID, existingFileHelper);
     }
 
     @Override
     protected void registerStatesAndModels() {
         model(HusbandryBlocks.NEST.get());
         model(HusbandryBlocks.TRUFFLE_BLOCK.get());
-        ModelFile file = models().getExistingFile(HusbandryBlocks.INCUBATOR.get().getRegistryName());
+        ModelFile file = models().getExistingFile(BuiltInRegistries.BLOCK.getKey(HusbandryBlocks.INCUBATOR.get()));
         VariantBlockStateBuilder builder = getVariantBuilder(HusbandryBlocks.INCUBATOR.get());
         builder.partialState().with(IncubatorBlock.FACING, Direction.EAST).modelForState().modelFile(file).rotationY(90).addModel();
         builder.partialState().with(IncubatorBlock.FACING, Direction.WEST).modelForState().modelFile(file).rotationY(270).addModel();
@@ -81,7 +81,7 @@ public class HusbandryBlockStates extends BlockStateProvider {
     }
 
     protected void model(Block block) {
-        ModelFile file = models().getExistingFile(block.getRegistryName());
+        ModelFile file = models().getExistingFile(BuiltInRegistries.BLOCK.getKey(block));
         getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(file).build());
     }
 }

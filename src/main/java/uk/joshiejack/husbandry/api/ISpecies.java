@@ -1,26 +1,26 @@
 package uk.joshiejack.husbandry.api;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import uk.joshiejack.husbandry.api.trait.IMobTrait;
 
 import java.util.List;
 
 public interface ISpecies {
-    IProducts getProducts();
+    IProducts products();
 
-    int getMinAge();
+    int minimumLifespan();
 
-    int getMaxAge();
+    int maximumLifespan();
 
-    int getGenericTreats();
+    int genericTreats();
 
-    int getSpeciesTreats();
+    int speciesTreats();
 
-    int getDaysToBirth();
+    int daysToBirth();
 
-    int getDaysToMaturity();
+    int daysToMaturity();
 
-    Item getTreat();
+    Item treat();
 
-    List<IMobTrait> getTraits();
+    List<IMobTrait> traits();
 }

@@ -6,19 +6,19 @@
       }
     },
     {
-      "when": {
-        "fill": "1"
-      },
       "apply": {
         "model": "husbandry:block/bird_feed_semi"
+      },
+      "when": {
+        "fill": "1"
       }
     },
     {
-      "when": {
-        "fill": "2"
-      },
       "apply": {
         "model": "husbandry:block/bird_feed_full"
+      },
+      "when": {
+        "fill": "2"
       }
     }
   ]

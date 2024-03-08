@@ -1,9 +1,9 @@
 package uk.joshiejack.husbandry.api.trait;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 
 public interface IDataTrait extends IMobTrait {
-    void load(CompoundNBT nbt);
+    void load(CompoundTag nbt);
 
-    void save(CompoundNBT nbt);
+    void save(CompoundTag nbt);
 }

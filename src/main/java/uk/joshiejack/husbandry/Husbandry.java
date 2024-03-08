@@ -1,57 +1,60 @@
 package uk.joshiejack.husbandry;
 
 import com.google.common.base.CaseFormat;
-import net.minecraft.data.BlockTagsProvider;
+import net.minecraft.DetectedVersion;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.extensions.IForgeContainerType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.metadata.PackMetadataGenerator;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.InclusiveRange;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.inventory.MenuType;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.joshiejack.husbandry.api.HusbandryAPI;
 import uk.joshiejack.husbandry.api.IMobStats;
 import uk.joshiejack.husbandry.api.trait.IMobTrait;
-import uk.joshiejack.husbandry.block.HusbandryBlocks;
-import uk.joshiejack.husbandry.crafting.HusbandryRegistries;
 import uk.joshiejack.husbandry.data.*;
-import uk.joshiejack.husbandry.entity.MobDataLoader;
-import uk.joshiejack.husbandry.entity.stats.MobStats;
-import uk.joshiejack.husbandry.entity.traits.food.*;
-import uk.joshiejack.husbandry.entity.traits.happiness.CarriableTrait;
-import uk.joshiejack.husbandry.entity.traits.happiness.CleanableTrait;
-import uk.joshiejack.husbandry.entity.traits.happiness.PettableTrait;
-import uk.joshiejack.husbandry.entity.traits.happiness.TreatableTrait;
-import uk.joshiejack.husbandry.entity.traits.lifestyle.*;
-import uk.joshiejack.husbandry.entity.traits.product.*;
-import uk.joshiejack.husbandry.inventory.MobTrackerContainer;
-import uk.joshiejack.husbandry.item.HusbandryItems;
-import uk.joshiejack.husbandry.note.LifespanNoteType;
-import uk.joshiejack.husbandry.note.PregnancyNoteType;
-import uk.joshiejack.husbandry.tileentity.HusbandryTileEntities;
-import uk.joshiejack.penguinlib.inventory.AbstractBookContainer;
-import uk.joshiejack.penguinlib.note.type.NoteType;
-import uk.joshiejack.penguinlib.util.helpers.ReflectionHelper;
+import uk.joshiejack.husbandry.world.block.HusbandryBlocks;
+import uk.joshiejack.husbandry.world.block.entity.HusbandryBlockEntities;
+import uk.joshiejack.husbandry.world.entity.MobDataLoader;
+import uk.joshiejack.husbandry.world.entity.stats.MobStats;
+import uk.joshiejack.husbandry.world.entity.traits.food.*;
+import uk.joshiejack.husbandry.world.entity.traits.happiness.CarriableTrait;
+import uk.joshiejack.husbandry.world.entity.traits.happiness.CleanableTrait;
+import uk.joshiejack.husbandry.world.entity.traits.happiness.PettableTrait;
+import uk.joshiejack.husbandry.world.entity.traits.happiness.TreatableTrait;
+import uk.joshiejack.husbandry.world.entity.traits.lifestyle.*;
+import uk.joshiejack.husbandry.world.entity.traits.product.*;
+import uk.joshiejack.husbandry.world.inventory.MobTrackerContainer;
+import uk.joshiejack.husbandry.world.item.HusbandryCreativeTab;
+import uk.joshiejack.husbandry.world.item.HusbandryItems;
+import uk.joshiejack.husbandry.world.item.crafting.HusbandryRegistries;
+import uk.joshiejack.husbandry.world.note.LifespanNoteType;
+import uk.joshiejack.husbandry.world.note.PregnancyNoteType;
+import uk.joshiejack.penguinlib.util.helper.ReflectionHelper;
+import uk.joshiejack.penguinlib.world.inventory.AbstractBookMenu;
+import uk.joshiejack.penguinlib.world.note.type.NoteType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -59,23 +62,19 @@ import javax.annotation.Nullable;
 public class Husbandry {
     public static final String MODID = "husbandry";
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final ItemGroup TAB = new ItemGroup(MODID) {
-        @Nonnull
-        @OnlyIn(Dist.CLIENT)
-        public ItemStack makeIcon() {
-            return new ItemStack(HusbandryItems.BRUSH.get());
-        }
-    };
 
-    public Husbandry() {
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public Husbandry(IEventBus eventBus) {
         eventBus.addListener(this::setup);
         HusbandryContainers.CONTAINERS.register(eventBus);
         HusbandryBlocks.BLOCKS.register(eventBus);
         HusbandryItems.ITEMS.register(eventBus);
+        HusbandryCreativeTab.CREATIVE_MODE_TABS.register(eventBus);
+        HusbandryRegistries.RECIPE_TYPES.register(eventBus);
         HusbandryRegistries.SERIALIZERS.register(eventBus);
         HusbandrySounds.SOUNDS.register(eventBus);
-        HusbandryTileEntities.TILE_ENTITIES.register(eventBus);
+        HusbandryBlockEntities.BLOCK_ENTITIES.register(eventBus);
+        MobDataLoader.ATTACHMENT_TYPES.register(eventBus);
+        MortalTrait.DAMAGE_SOURCES.register(eventBus);
         HusbandryAPI.instance = new HusbandryAPIImpl();
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, HusbandryConfig.create());
     }
@@ -128,33 +127,39 @@ public class Husbandry {
     @SubscribeEvent
     public static void onDataGathering(final GatherDataEvent event) {
         final DataGenerator generator = event.getGenerator();
-        if (event.includeServer()) {
-            generator.addProvider(new HusbandryLootTables(generator));
-            BlockTagsProvider blockTags = new HusbandryBlockTags(generator, event.getExistingFileHelper());
-            generator.addProvider(blockTags);
-            generator.addProvider(new HusbandryItemTags(generator, blockTags, event.getExistingFileHelper()));
-            generator.addProvider(new HusbandryRecipes(generator));
-            generator.addProvider(new HusbandryDatabase(generator));
-            generator.addProvider(new HusbandryBlockStates(generator, event.getExistingFileHelper()));
-        }
+        final PackOutput output = event.getGenerator().getPackOutput();
+        //Add the datapack entries
+        //Client
+        generator.addProvider(event.includeClient(), new HusbandryBlockStates(output, event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new HusbandryItemModels(output, event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new HusbandryLanguage(output));
+        generator.addProvider(event.includeClient(), new HusbandrySoundDefinitions(output, event.getExistingFileHelper()));
 
-        if (event.includeClient()) {
-            generator.addProvider(new HusbandryLanguage(generator));
-            generator.addProvider(new HusbandryItemModels(generator, event.getExistingFileHelper()));
-        }
+        //Server
+        HusbandryBlockTags blocktags = new HusbandryBlockTags(output, event.getLookupProvider(), event.getExistingFileHelper());
+        generator.addProvider(event.includeServer(), blocktags);
+        generator.addProvider(event.includeServer(), new HusbandryLootTables(output));
+        generator.addProvider(event.includeServer(), new HusbandryItemTags(output, event.getLookupProvider(), blocktags.contentsGetter(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new HusbandryRecipes(output));
+        generator.addProvider(event.includeServer(), new HusbandryDatabase(output));
+        generator.addProvider(event.includeServer(), new HusbandryNotes(output));
+        generator.addProvider(true, new PackMetadataGenerator(output).add(PackMetadataSection.TYPE, new PackMetadataSection(
+                Component.literal("Resources for Husbandry"),
+                DetectedVersion.BUILT_IN.getPackVersion(PackType.SERVER_DATA),
+                Optional.of(new InclusiveRange<>(0, Integer.MAX_VALUE)))));
     }
 
     public static class HusbandryContainers {
-        public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Husbandry.MODID);
-        public static final RegistryObject<ContainerType<AbstractBookContainer>> BOOK = CONTAINERS.register("mob_tracker", () -> IForgeContainerType.create((id, inv, data) -> new MobTrackerContainer(id)));
+        public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(Registries.MENU, Husbandry.MODID);
+        public static final DeferredHolder<MenuType<?>, MenuType<AbstractBookMenu>> BOOK = CONTAINERS.register("mob_tracker", () -> IMenuTypeExtension.create((id, inv, data) -> new MobTrackerContainer(id)));
     }
 
     public static class HusbandrySounds {
-        public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MODID);
-        public static final RegistryObject<SoundEvent> BRUSH = createSoundEvent("brush");
+        public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, MODID);
+        public static final DeferredHolder<SoundEvent, SoundEvent> BRUSH = createSoundEvent("brush");
 
-        private static RegistryObject<SoundEvent> createSoundEvent(@Nonnull String name) {
-            return SOUNDS.register(name, () -> new SoundEvent(new ResourceLocation(MODID, name)));
+        private static DeferredHolder<SoundEvent, SoundEvent> createSoundEvent(@Nonnull String name) {
+            return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(MODID, name)));
         }
     }
 
@@ -168,27 +173,27 @@ public class Husbandry {
         @Nullable
         @SuppressWarnings("unchecked")
         @Override
-        public <E extends MobEntity> IMobStats<E> getStatsForEntity(E entity) {
+        public <E extends Mob> IMobStats<E> getStatsForEntity(E entity) {
             return (IMobStats<E>) MobStats.getStats(entity);
         }
     }
 
     public static class HusbandryConfig {
-        public static ForgeConfigSpec.IntValue maxHappiness;
-        public static ForgeConfigSpec.IntValue hungerHappinessLoss;
-        public static ForgeConfigSpec.IntValue hurtHappinessLossModifier;
-        public static ForgeConfigSpec.IntValue dirtyHappinessLoss;
-        public static ForgeConfigSpec.IntValue wrongTreatLoss;
-        public static ForgeConfigSpec.IntValue lovedGain;
-        public static ForgeConfigSpec.IntValue fedGain;
-        public static ForgeConfigSpec.IntValue cleanedGain;
-        public static ForgeConfigSpec.IntValue genericTreatGain;
-        public static ForgeConfigSpec.IntValue typeTreatGain;
-        public static ForgeConfigSpec.IntValue outsideGain;
-        public static ForgeConfigSpec.IntValue birthGain;
-        public static ForgeConfigSpec.IntValue daysPerYear;
+        public static ModConfigSpec.IntValue maxHappiness;
+        public static ModConfigSpec.IntValue hungerHappinessLoss;
+        public static ModConfigSpec.IntValue hurtHappinessLossModifier;
+        public static ModConfigSpec.IntValue dirtyHappinessLoss;
+        public static ModConfigSpec.IntValue wrongTreatLoss;
+        public static ModConfigSpec.IntValue lovedGain;
+        public static ModConfigSpec.IntValue fedGain;
+        public static ModConfigSpec.IntValue cleanedGain;
+        public static ModConfigSpec.IntValue genericTreatGain;
+        public static ModConfigSpec.IntValue typeTreatGain;
+        public static ModConfigSpec.IntValue outsideGain;
+        public static ModConfigSpec.IntValue birthGain;
+        public static ModConfigSpec.IntValue daysPerYear;
 
-        HusbandryConfig(ForgeConfigSpec.Builder builder) {
+        HusbandryConfig(ModConfigSpec.Builder builder) {
             builder.push("General Settings");
             daysPerYear = builder.defineInRange("Animal lifespan days per year", 112, 7, 700000);
             builder.pop();
@@ -208,8 +213,8 @@ public class Husbandry {
             builder.pop();
         }
 
-        public static ForgeConfigSpec create() {
-            return new ForgeConfigSpec.Builder().configure(HusbandryConfig::new).getValue();
+        public static ModConfigSpec create() {
+            return new ModConfigSpec.Builder().configure(HusbandryConfig::new).getValue();
         }
     }
 }

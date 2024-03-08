@@ -1,17 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "S": {
+      "tag": "forge:rods/wooden"
+    },
+    "W": {
+      "tag": "forge:crops/wheat"
+    }
+  },
   "pattern": [
     " W",
     "S "
   ],
-  "key": {
-    "W": {
-      "tag": "forge:crops/wheat"
-    },
-    "S": {
-      "tag": "forge:rods/wooden"
-    }
-  },
   "result": {
     "item": "husbandry:brush"
   }

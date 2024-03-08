@@ -1,44 +1,52 @@
 package uk.joshiejack.husbandry.network;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkDirection;
-import uk.joshiejack.penguinlib.network.PenguinPacket;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
+import uk.joshiejack.penguinlib.PenguinLib;
+import uk.joshiejack.penguinlib.network.packet.PenguinPacket;
 import uk.joshiejack.penguinlib.util.PenguinLoader;
 
-@PenguinLoader.Packet(NetworkDirection.PLAY_TO_CLIENT)
+@PenguinLoader.Packet(PacketFlow.CLIENTBOUND)
 public class SpawnHeartsPacket extends PenguinPacket {
-    private int entityID;
-    private boolean positive;
+    public static final ResourceLocation ID = PenguinLib.prefix("spawn_hearts");
+    @Override
+    public @NotNull ResourceLocation id() {
+        return ID;
+    }
 
-    public SpawnHeartsPacket(){}
+    private final int entityID;
+    private final boolean positive;
+
     public SpawnHeartsPacket(int entityID, boolean positive) {
         this.entityID = entityID;
         this.positive = positive;
     }
 
-    @Override
-    public void encode(PacketBuffer to) {
-        to.writeInt(entityID);
-        to.writeBoolean(positive);
-    }
-
-    @Override
-    public void decode(PacketBuffer from) {
+    @SuppressWarnings("unused")
+    public SpawnHeartsPacket(FriendlyByteBuf from) {
         entityID = from.readInt();
         positive = from.readBoolean();
     }
 
     @Override
-    public void handle(PlayerEntity player) {
-        World world = player.level;
+    public void write(FriendlyByteBuf to) {
+        to.writeInt(entityID);
+        to.writeBoolean(positive);
+    }
+
+    @Override
+    public void handle(Player player) {
+        Level world = player.level();
         Entity entity = world.getEntity(entityID);
         if (entity != null) {
-            BasicParticleType type = positive ? ParticleTypes.HEART : ParticleTypes.DAMAGE_INDICATOR;
+            SimpleParticleType type = positive ? ParticleTypes.HEART : ParticleTypes.DAMAGE_INDICATOR;
             int times = positive ? 3 : 16;
             double offset = positive ? -0.125D : 0D;
             for (int j = 0; j < times; j++) {

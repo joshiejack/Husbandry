@@ -1,27 +1,27 @@
 modLoader="javafml"
-loaderVersion="[36,)"
-license="MIT"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
 [[mods]]
-    modId="husbandry"
-    version="${file.jarVersion}"
-    displayName="Husbandry"
-    authors="joshiejack"
-    description='''Take care of your animals for more rewards.'''
-[[dependencies.husbandry]]
-    modId="forge"
-    mandatory=true
-    versionRange="[36,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.husbandry]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.16.5,1.17)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.husbandry]]
+    modId="${mod_id}"
+    version="${mod_version}"
+    displayName="${mod_name}"
+    authors="${mod_authors}"
+    description='''${mod_description}'''
+[[dependencies.${mod_id}]]
     modId="penguinlib"
-    mandatory=true
-    versionRange="[0.4.2,)"
+    type="required"
+    versionRange="${penguinlib_version_range}"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neo_version_range}"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"

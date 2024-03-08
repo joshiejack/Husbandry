@@ -1,5 +1,9 @@
 {
   "variants": {
+    "facing=east": {
+      "model": "husbandry:block/incubator",
+      "y": 90
+    },
     "facing=north": {
       "model": "husbandry:block/incubator"
     },
@@ -10,10 +14,6 @@
     "facing=west": {
       "model": "husbandry:block/incubator",
       "y": 270
-    },
-    "facing=east": {
-      "model": "husbandry:block/incubator",
-      "y": 90
     }
   }
 }

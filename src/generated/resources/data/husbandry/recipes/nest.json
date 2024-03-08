@@ -1,17 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "minecraft:hay_block"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    }
+  },
   "pattern": [
     "PHP",
     "PPP"
   ],
-  "key": {
-    "P": {
-      "tag": "minecraft:planks"
-    },
-    "H": {
-      "item": "minecraft:hay_block"
-    }
-  },
   "result": {
     "item": "husbandry:nest"
   }

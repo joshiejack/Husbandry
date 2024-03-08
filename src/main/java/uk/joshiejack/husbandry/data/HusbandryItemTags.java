@@ -1,34 +1,36 @@
 package uk.joshiejack.husbandry.data;
 
-import net.minecraft.data.BlockTagsProvider;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.ItemTagsProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.tags.ITag;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import uk.joshiejack.husbandry.Husbandry;
-import uk.joshiejack.husbandry.entity.traits.food.*;
-import uk.joshiejack.husbandry.entity.traits.happiness.TreatableTrait;
-import uk.joshiejack.husbandry.entity.traits.lifestyle.MammalTrait;
-import uk.joshiejack.husbandry.item.HusbandryItems;
+import uk.joshiejack.husbandry.world.entity.traits.food.*;
+import uk.joshiejack.husbandry.world.entity.traits.happiness.TreatableTrait;
+import uk.joshiejack.husbandry.world.entity.traits.lifestyle.MammalTrait;
+import uk.joshiejack.husbandry.world.item.HusbandryItems;
 import uk.joshiejack.penguinlib.util.PenguinTags;
 
-import javax.annotation.Nullable;
+import java.util.concurrent.CompletableFuture;
 
 public class HusbandryItemTags extends ItemTagsProvider {
-    public static final ITag.INamedTag<Item> BUTTER = PenguinTags.forgeTag("butter");
-    public static final ITag.INamedTag<Item> MOB_PRODUCT = ItemTags.createOptional(new ResourceLocation(Husbandry.MODID, "mob_product"));
+    public static final TagKey<Item> BUTTER = PenguinTags.forgeItemTag("butter");
+    public static final TagKey<Item> MOB_PRODUCT = ItemTags.create(new ResourceLocation(Husbandry.MODID, "mob_product"));
 
-    public HusbandryItemTags(DataGenerator generator, BlockTagsProvider blockTagProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generator, blockTagProvider, Husbandry.MODID, existingFileHelper);
+    public HusbandryItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, CompletableFuture<TagLookup<Block>> blockLookup, ExistingFileHelper existingFileHelper) {
+        super(output, provider, blockLookup, Husbandry.MODID, existingFileHelper);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public void addTags() {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
         tag(BUTTER).add(HusbandryItems.BUTTER.get());
         tag(TreatableTrait.TREATS)
                 .add(HusbandryItems.GENERIC_TREAT.get(), HusbandryItems.CAT_TREAT.get(), HusbandryItems.CHICKEN_TREAT.get()

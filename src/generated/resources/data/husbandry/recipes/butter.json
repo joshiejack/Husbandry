@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "minecraft:milk_bucket"
@@ -9,7 +10,7 @@
     }
   ],
   "result": {
-    "item": "husbandry:butter",
-    "count": 4
+    "count": 4,
+    "item": "husbandry:butter"
   }
 }

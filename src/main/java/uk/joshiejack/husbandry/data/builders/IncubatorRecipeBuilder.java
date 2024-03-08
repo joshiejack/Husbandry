@@ -1,38 +1,37 @@
 package uk.joshiejack.husbandry.data.builders;
 
-import com.google.gson.JsonObject;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.RangedInteger;
-import uk.joshiejack.husbandry.crafting.HusbandryRegistries;
-import uk.joshiejack.husbandry.crafting.IncubatorRecipe;
-import uk.joshiejack.penguinlib.data.generators.builders.SimplePenguinRegistryBuilder;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
+import uk.joshiejack.husbandry.world.item.crafting.HusbandryRegistries;
+import uk.joshiejack.husbandry.world.item.crafting.IncubatorRecipe;
+import uk.joshiejack.penguinlib.data.generator.builder.SimplePenguinRegistryBuilder;
 
-import java.util.Objects;
+public class IncubatorRecipeBuilder extends SimplePenguinRegistryBuilder.EntityOutput<IncubatorRecipe> {
+    private final int min;
+    private final int max;
 
-public class IncubatorRecipeBuilder extends SimplePenguinRegistryBuilder<IncubatorRecipe> {
-    private final EntityType<?> entity;
-    private final RangedInteger range;
-
-    public IncubatorRecipeBuilder(Ingredient ingredient, EntityType<?> type, RangedInteger range) {
-        super(HusbandryRegistries.INCUBATOR_SERIALIZER.get(), ingredient);
-        this.entity = type;
-        this.range = range;
+    public IncubatorRecipeBuilder(Ingredient ingredient, EntityType<?> type, int min, int max) {
+        super(HusbandryRegistries.INCUBATOR_SERIALIZER.get(), (i, o) -> new IncubatorRecipe(i, o, min, max), ingredient, type);
+        this.min = min;
+        this.max = max;
     }
 
     public static IncubatorRecipeBuilder incubate(Ingredient item, EntityType<?> entity, int min ,int max) {
-        return new IncubatorRecipeBuilder(item, entity, RangedInteger.of(min, max));
+        return new IncubatorRecipeBuilder(item, entity, min, max);
     }
 
     @Override
-    public void serializeRecipeData(JsonObject json) {
-        super.serializeRecipeData(json);
-        json.addProperty("entity", Objects.requireNonNull(entity.getRegistryName()).toString());
-        if (range.getMinInclusive() == range.getMaxInclusive())
-            json.addProperty("amount", range.getMinInclusive());
-        else {
-            json.addProperty("min amount", range.getMinInclusive());
-            json.addProperty("max amount", range.getMaxInclusive());
-        }
+    public @NotNull Item getResult() {
+        return Items.AIR;
+    }
+
+    @Override
+    public void save(@NotNull RecipeOutput output, @NotNull ResourceLocation resource) {
+        output.accept(resource, new IncubatorRecipe(ingredient, result, min, max), null);
     }
 }

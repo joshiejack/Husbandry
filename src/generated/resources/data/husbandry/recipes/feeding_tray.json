@@ -1,8 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "PSP"
-  ],
+  "category": "misc",
   "key": {
     "P": {
       "tag": "minecraft:planks"
@@ -11,6 +9,9 @@
       "tag": "minecraft:wooden_slabs"
     }
   },
+  "pattern": [
+    "PSP"
+  ],
   "result": {
     "item": "husbandry:feeding_tray"
   }

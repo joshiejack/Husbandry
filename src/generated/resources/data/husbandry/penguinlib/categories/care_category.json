@@ -1,0 +1,13 @@
+{
+  "icon": {
+    "type": "penguinlib:item",
+    "item": {
+      "Count": 1,
+      "id": "husbandry:brush",
+      "tag": {
+        "Damage": 0
+      }
+    }
+  },
+  "id": "husbandry:care_category"
+}

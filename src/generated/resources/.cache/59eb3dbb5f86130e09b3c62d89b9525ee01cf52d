@@ -1,0 +1,13 @@
+// 1.20.4	2024-01-31T15:30:13.1283616	Loot Tables
+ce114682635178b631f7dd5447f1500876a5b536 data/husbandry/loot_tables/blocks/bowl.json
+6f74596915dfeea597e9e76a4d5a43395f5eb68f data/husbandry/loot_tables/blocks/feeding_tray.json
+1f747424ed46878b22778ea794e449609f93191d data/husbandry/loot_tables/blocks/incubator.json
+9238ac72a4bfc5f353ada8c75a0a67b36e08e303 data/husbandry/loot_tables/blocks/nest.json
+45c752a9eef224bddf86a2e6422d532d4d337095 data/husbandry/loot_tables/blocks/trough.json
+81be0d2c4e32f5248013493d236451a050d4dba0 data/husbandry/loot_tables/blocks/truffle_block.json
+8755affb59630a8582cd3d5b192ea949bfe67ef1 data/husbandry/loot_tables/entities/products/chicken_egg.json
+9802275328fe85a59321f8e5d60d8e4804ecea65 data/husbandry/loot_tables/entities/products/milk.json
+f8c6b861815a37aaa86c89b3fba8b7d28a982bfd data/husbandry/loot_tables/entities/products/mushroom_stew.json
+d6ca8dfc80f22fbd592df88ff6cba0df7d1bd2dd data/husbandry/loot_tables/entities/products/rabbit_foot.json
+0ea0768280ee00a22be28718a078e6c92b0579b1 data/husbandry/loot_tables/entities/products/truffle.json
+fb982a9a092c0d7344ae41a667a2c1ac8f4dbe4b data/husbandry/loot_tables/entities/products/wool.json

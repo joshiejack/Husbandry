@@ -2,21 +2,17 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": {
-        "min": 5.0,
-        "max": 11.0,
-        "type": "minecraft:uniform"
-      },
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:0b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:white_wool"
@@ -26,10 +22,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:1b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:orange_wool"
@@ -39,10 +35,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:2b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:magenta_wool"
@@ -52,10 +48,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:3b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:light_blue_wool"
@@ -65,10 +61,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:4b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:yellow_wool"
@@ -78,10 +74,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:5b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:lime_wool"
@@ -91,10 +87,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:6b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:pink_wool"
@@ -104,10 +100,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:7b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:gray_wool"
@@ -117,10 +113,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:8b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:light_gray_wool"
@@ -130,10 +126,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:9b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:cyan_wool"
@@ -143,10 +139,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:10b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:purple_wool"
@@ -156,10 +152,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:11b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:blue_wool"
@@ -169,10 +165,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:12b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:brown_wool"
@@ -182,10 +178,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:13b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:green_wool"
@@ -195,10 +191,10 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:14b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:red_wool"
@@ -208,15 +204,21 @@
           "conditions": [
             {
               "condition": "minecraft:entity_properties",
+              "entity": "this",
               "predicate": {
                 "nbt": "{Color:15b}"
-              },
-              "entity": "this"
+              }
             }
           ],
           "name": "minecraft:black_wool"
         }
-      ]
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 11.0,
+        "min": 5.0
+      }
     }
-  ]
+  ],
+  "random_sequence": "husbandry:entities/products/wool"
 }

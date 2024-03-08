@@ -6,57 +6,57 @@
       }
     },
     {
-      "when": {
-        "type": "cat_food",
-        "fill": "1"
-      },
       "apply": {
         "model": "husbandry:block/cat_food_semi"
+      },
+      "when": {
+        "type": "cat_food",
+        "fill": "1"
       }
     },
     {
+      "apply": {
+        "model": "husbandry:block/cat_food_full"
+      },
       "when": {
         "type": "cat_food",
         "fill": "2"
-      },
-      "apply": {
-        "model": "husbandry:block/cat_food_full"
       }
     },
     {
-      "when": {
-        "type": "dog_food",
-        "fill": "1"
-      },
       "apply": {
         "model": "husbandry:block/dog_food_semi"
+      },
+      "when": {
+        "type": "dog_food",
+        "fill": "1"
       }
     },
     {
+      "apply": {
+        "model": "husbandry:block/dog_food_full"
+      },
       "when": {
         "type": "dog_food",
         "fill": "2"
-      },
-      "apply": {
-        "model": "husbandry:block/dog_food_full"
       }
     },
     {
+      "apply": {
+        "model": "husbandry:block/rabbit_food_semi"
+      },
       "when": {
         "type": "rabbit_food",
         "fill": "1"
-      },
-      "apply": {
-        "model": "husbandry:block/rabbit_food_semi"
       }
     },
     {
+      "apply": {
+        "model": "husbandry:block/rabbit_food_full"
+      },
       "when": {
         "type": "rabbit_food",
         "fill": "2"
-      },
-      "apply": {
-        "model": "husbandry:block/rabbit_food_full"
       }
     }
   ]

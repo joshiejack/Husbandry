@@ -1,19 +1,19 @@
 package uk.joshiejack.husbandry.data;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.util.RangedInteger;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import uk.joshiejack.husbandry.Husbandry;
-import uk.joshiejack.husbandry.item.HusbandryItems;
-import uk.joshiejack.husbandry.tileentity.HusbandryTileEntities;
+import uk.joshiejack.husbandry.world.block.entity.HusbandryBlockEntities;
+import uk.joshiejack.husbandry.world.item.HusbandryItems;
 import uk.joshiejack.penguinlib.data.TimeUnitRegistry;
 import uk.joshiejack.penguinlib.data.database.CSVUtils;
-import uk.joshiejack.penguinlib.data.generators.AbstractDatabaseProvider;
-import uk.joshiejack.penguinlib.data.generators.builders.TradeBuilder;
+import uk.joshiejack.penguinlib.data.generator.AbstractDatabaseProvider;
+import uk.joshiejack.penguinlib.data.generator.builder.TradeBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,14 +21,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class HusbandryDatabase extends AbstractDatabaseProvider {
-    public HusbandryDatabase(DataGenerator gen) {
-        super(gen, Husbandry.MODID);
+    public HusbandryDatabase(PackOutput output) {
+        super(output, Husbandry.MODID);
     }
 
     @Override
     protected void addDatabaseEntries() {
         addTimeUnit("require_food_max_days", 3);
-        addTimeUnitForMachine(HusbandryTileEntities.INCUBATOR.get(), TimeUnitRegistry.Defaults.WEEK.getValue());
+        addTimeUnitForMachine(HusbandryBlockEntities.INCUBATOR.get(), TimeUnitRegistry.Defaults.WEEK.getValue());
         new TradeBuilder(VillagerProfession.SHEPHERD, 1, HusbandryItems.GENERIC_TREAT.get()).setOutputAmount(5).build(this);
         new TradeBuilder(VillagerProfession.SHEPHERD, 2, HusbandryItems.CAT_TREAT.get()).setOutputAmount(3).setInputAmount(2).build(this);
         new TradeBuilder(VillagerProfession.SHEPHERD, 2, HusbandryItems.CHICKEN_TREAT.get()).setOutputAmount(3).setInputAmount(2).build(this);
@@ -69,7 +69,7 @@ public class HusbandryDatabase extends AbstractDatabaseProvider {
     private static class MobType {
         public static final ResourceLocation NO_PRODUCTS = new ResourceLocation(Husbandry.MODID, "none");
         private final String name;
-        private RangedInteger lifespan = new RangedInteger(5, 12);
+        private int minAge = 0, maxAge = 0;
         private Item treat = HusbandryItems.GENERIC_TREAT.get();
         private int generic = 10, type = 10, gestation = 9, maturity = 10, productsFrequency = 0;
         private ResourceLocation productTable = NO_PRODUCTS;
@@ -104,7 +104,8 @@ public class HusbandryDatabase extends AbstractDatabaseProvider {
         }
 
         public MobType withLifespan(int min, int max) {
-            this.lifespan = new RangedInteger(min, max);
+            this.minAge = min;
+            this.maxAge = max;
             return this;
         }
 
@@ -136,10 +137,11 @@ public class HusbandryDatabase extends AbstractDatabaseProvider {
             return this;
         }
 
+        @SuppressWarnings("all")
         public void build(HusbandryDatabase database) {
             database.addEntry("mob_species", "Name,Min Age,Max Age,Treat Item,Generic Treats,Species Treats,Days to Birth,Days to Maturity,Product Frequency,Products Loot Table,Product Icon",
-                    CSVUtils.join(name, lifespan.getMinInclusive(), lifespan.getMaxInclusive(), treat.getRegistryName(), generic, type, gestation, maturity, productsFrequency, productTable == NO_PRODUCTS ? "none" : productTable.toString(), productsIcon.getRegistryName()));
-            entities.forEach(entity -> database.addEntry("mob_entities", "Entity,Species", CSVUtils.join(Objects.requireNonNull(entity.getRegistryName()).toString(), name)));
+                    CSVUtils.join(name, minAge, maxAge, BuiltInRegistries.ITEM.getKey(treat), generic, type, gestation, maturity, productsFrequency, productTable == NO_PRODUCTS ? "none" : productTable.toString(), BuiltInRegistries.ITEM.getKey(productsIcon)));
+            entities.forEach(entity -> database.addEntry("mob_entities", "Entity,Species", CSVUtils.join(Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(entity)).toString(), name)));
             traits.forEach(trait -> database.addEntry("mob_traits", "Species,Trait", CSVUtils.join(name, trait)));
         }
     }
